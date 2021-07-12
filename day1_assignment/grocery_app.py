@@ -1,20 +1,29 @@
 # Grocery App
-# Global Functions
+
+def greeting():
+    print("\nWelcome to our Grocery List App.\nPlease review the upcoming options carefully:\n")
+
+def farewell():
+    print("\nThanks for using our App!\nGoodbye!")
+
 def view_stores():
-    print("\nBelow are your current stores.\n")
+    print("\nBelow are your stores:")
+    print("------------------------------------------------")
     for i in range(len(shopping_lists)):
-        print(f"Store {i + 1} is {shopping_lists[i].name}")
+        print(f"{i + 1}: {shopping_lists[i].name}")
+    print("------------------------------------------------")
 
 def view_grocery_items():
-    print("\nBelow are you current items:\n")
-    for i in range(0, len(shopping_lists)):
-        print(shopping_lists[i].name)
+    print("\nBelow are your groceries:")
+    print("------------------------------------------------")
+    for i in range(len(shopping_lists)):
+        print(f"{i + 1}: {shopping_lists[i].name}")
         for item in shopping_lists[i].items:
-            print(item.total)
+            print(f"    -> {item.total}")
+    print("------------------------------------------------")
 
-# Classes for List and Items:
 class Stores:
-    def __init__(self, store, address):
+    def __init__(self, store, address = "1200 Lakeview Ave"):
         self.name = name
         self.address = address
         self.items = [] # Items will be appended to array
@@ -24,11 +33,10 @@ class Groceries:
         self.product = product
         self.price = price
         self.quantity = quantity
-        self.total = f"{product}: Quantity: {quantity}, Total Price ${price * quantity}"
+        self.total = f"{product}, Quantity: {quantity} Units, Total Price: ${price * quantity}"
 
+greeting()
 shopping_lists = []
-
-print("Welcome to our Grocery List App.\nPlease review the upcoming options carefully:\n")
 
 while True:
     print("""
@@ -57,10 +65,11 @@ while True:
         quantity = int(input("Enter how many: "))
         item = Groceries(product, price, quantity)
         shopping_lists[store_i - 1].items.append(item)
+        view_grocery_items()
 
     elif selection.lower() == "c":
         view_stores() 
-        
+        view_grocery_items()
 
     elif selection.lower() == "q":
         break
@@ -69,4 +78,4 @@ while True:
         print("Please enter A,B,C or q")
 
 
-print("Goodbye")
+farewell()
