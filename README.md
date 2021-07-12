@@ -1,5 +1,5 @@
 Python Coding Assignments
 
-Day 1 Assignment:
+Day 1 Assignments:
 
-1. grocery_app.py
+    1. Grocery App
