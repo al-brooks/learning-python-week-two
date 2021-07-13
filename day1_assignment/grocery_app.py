@@ -56,6 +56,8 @@ while True:
     A: Create a new list by entering the store information
     B: Add grocery items to a list
     C: View all your shopping lists
+    D: Delete a store list
+    E: Delete an item from a list
     Q: Exit the program
 """)
 
@@ -83,6 +85,25 @@ while True:
 
     elif selection == "c":
         view_stores() 
+        view_grocery_items()
+
+    elif selection == "d":
+        view_stores() 
+        store_i = int(input("Which store number do you want to delete? "))
+        del shopping_lists[store_i - 1]
+        view_stores()
+
+    elif selection == "e":
+        view_grocery_items()
+        store_i = int(input("Which store number do you want to edit? "))
+        store = shopping_lists[store_i - 1]
+        print(f"\nBelow are the groceries listed for: {store.name}")
+        print("------------------------------------------------")
+        for index in range(len(store.items)):
+            print(f"{index + 1}: {store.items[index].total}")
+        print("------------------------------------------------")
+        grocery_del = int(input("Which grocery number do you want to delete?"))
+        del store.items[grocery_del - 1]
         view_grocery_items()
 
     elif selection == "q":
