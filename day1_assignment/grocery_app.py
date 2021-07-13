@@ -9,16 +9,28 @@ def farewell():
 def view_stores():
     print("\nBelow are your stores:")
     print("------------------------------------------------")
-    for i in range(len(shopping_lists)):
-        print(f"{i + 1}: {shopping_lists[i].name}")
+    # for i in range(len(shopping_lists)):
+    #     print(f"{i + 1}: {shopping_lists[i].name}")
+
+    # Another way to view stores
+    for index in range(0, len(shopping_lists)):
+        store = shopping_lists[index] # storing array item in new var
+        print(f"{index + 1}: {store.name}")
     print("------------------------------------------------")
 
 def view_grocery_items():
     print("\nBelow are your groceries:")
     print("------------------------------------------------")
-    for i in range(len(shopping_lists)):
-        print(f"{i + 1}: {shopping_lists[i].name}")
-        for item in shopping_lists[i].items:
+    # for i in range(len(shopping_lists)):
+    #     print(f"{i + 1}: {shopping_lists[i].name}")
+    #     for item in shopping_lists[i].items:
+    #         print(f"    -> {item.total}")
+
+    # Using new loop similar to view_stores:
+    for index in range(0, len(shopping_lists)):
+        store = shopping_lists[index] # storing array item in new var
+        print(f"{index + 1}: {store.name}")
+        for item in store.items:
             print(f"    -> {item.total}")
     print("------------------------------------------------")
 
@@ -48,30 +60,32 @@ while True:
 """)
 
     selection = input("Enter your selection: ")
+    selection = selection.lower()
 
     # Creating a list:
-    if selection.lower() == "a":
+    if selection == "a":
         name = input("Enter the name of the store: ")
         address = input("Enter the address of the store: ")
         store = Stores(name, address)
         shopping_lists.append(store)
         view_stores()
 
-    elif selection.lower() == "b":
+    elif selection == "b":
         view_stores()
         store_i = int(input("Which store number do you want to edit? "))
+        store = shopping_lists[store_i - 1]
         product = input("Enter product name: ")
         price = int(input("Enter item price: "))
         quantity = int(input("Enter how many: "))
         item = Groceries(product, price, quantity)
-        shopping_lists[store_i - 1].items.append(item)
+        store.items.append(item)
         view_grocery_items()
 
-    elif selection.lower() == "c":
+    elif selection == "c":
         view_stores() 
         view_grocery_items()
 
-    elif selection.lower() == "q":
+    elif selection == "q":
         break
 
     else:
