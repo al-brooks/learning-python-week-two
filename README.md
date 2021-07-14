@@ -1,5 +1,9 @@
 Python Coding Assignments
 
-Day 1 Assignments:
+Day 1 Assignment:
 
-    1. Grocery App
+    -> Grocery App
+
+Day 3 Assignment:
+
+    -> Pool Table App
