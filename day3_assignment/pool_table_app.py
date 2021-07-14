@@ -2,40 +2,48 @@
 
 # Need to track date/time:
 from datetime import datetime
-from classes import PoolTable
+from classes import PoolTable        
 
-#  Step 1: TIME TRACKING TESTING
+# Create Table instances
 # ==============================================================================
-start = datetime.now() # once indicator is flagged both times should be now()
-end = "2021-07-14 19:31:28"
-start_str = start.strftime("%Y-%m-%d %H:%M:%S") # convert start into string
+tables = [] # global array
 
-conv_start = datetime.strptime(start_str, "%Y-%m-%d %H:%M:%S") # Str -> datetime
-conv_end = datetime.strptime(end, "%Y-%m-%d %H:%M:%S") # Str -> datetime
-# print(conv_end - conv_start) # datetime calc in useable format
+# creates 12 tables instances
 
-# now need to take this and convert to mins only when under an hour
+for table in range(1, 13):
+    pool_table = PoolTable(table)
+    tables.append(pool_table)
+    # print(pool_table.number) # testing number attribute - works
+
+# view all tables and occupation status
+for table in range(1, len(tables) + 1):
+    print(pool_table.display_occupy(table))
+
+# You should be able to see all the tables (12)
+# need to create a separate table instance - like store or groceries. Store in an array?
 
 # ==============================================================================
 
-# Step 2 - test a class: 
+
+
+# Testing loop to see if class methods worked 
 # ==============================================================================
-while True:
-    print("Does someone want to check out a pool table?\n")
+# while True:
+#     print("Does someone want to check out a pool table?\n")
 
-    choice = input("Enter in y or n: ")
+#     choice = input("Enter in y or n: ")
 
-    if choice.lower() == "y":
-        table_1 = PoolTable(1)
-        table_1.check_out()
-        print(f"Your start time is: {table_1.start_time_display}")
+#     if choice.lower() == "y":
+#         table_1 = PoolTable(1)
+#         table_1.check_out()
+#         print(f"Your start time is: {table_1.start_time_display}")
 
-    game_over = input("Are they done playing? Enter y or n")
+#     game_over = input("Are they done playing? Enter y or n")
 
-    if game_over.lower() == "y":
-        table_1.check_in()
-        print(table_1.play_duraton)
-        break
+#     if game_over.lower() == "y":
+#         table_1.check_in()
+#         print(table_1.play_duraton)
+#         break
 
 
 # table_1.check_out()
@@ -44,14 +52,6 @@ while True:
 # ==============================================================================
 
 
-# Step 4: 
-# ==============================================================================
-
-# You should be able to see all the tables (12)
-# need to create a separate table instance - like store or groceries. Store in an array?
-tables = [] # global array
-
-# ==============================================================================
 
 
 # tables should have table number
