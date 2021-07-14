@@ -1,5 +1,5 @@
 # Grocery App
-from classes import Stores, Groceries
+from classes import Store, Grocery
 
 def greeting():
     print("\nWelcome to our Grocery List App.\nPlease review the upcoming options carefully:\n")
@@ -48,7 +48,7 @@ while True:
         if selection == "a":
             name = input("Enter the name of the store: ")
             address = input("Enter the address of the store: ")
-            store = Stores(name, address)
+            store = Store(name, address)
             shopping_lists.append(store)
             view_stores()
 
@@ -59,7 +59,7 @@ while True:
             product = input("Enter product name: ")
             price = int(input("Enter item price: "))
             quantity = int(input("Enter how many: "))
-            item = Groceries(product, price, quantity)
+            item = Grocery(product, price, quantity)
             store.items.append(item)
             view_grocery_items()
 
