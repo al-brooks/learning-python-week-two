@@ -1,6 +1,6 @@
 class Stores:
     def __init__(self, store, address = "1200 Lakeview Ave"):
-        self.name = name
+        self.name = store
         self.address = address
         self.items = []
 
