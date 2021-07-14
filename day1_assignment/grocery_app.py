@@ -1,4 +1,5 @@
 # Grocery App
+from classes import Stores, Groceries
 
 def greeting():
     print("\nWelcome to our Grocery List App.\nPlease review the upcoming options carefully:\n")
@@ -23,19 +24,6 @@ def view_grocery_items():
         for item in store.items:
             print(f"    -> {item.total}")
     print("------------------------------------------------")
-
-class Stores:
-    def __init__(self, store, address = "1200 Lakeview Ave"):
-        self.name = name
-        self.address = address
-        self.items = []
-
-class Groceries:
-    def __init__(self, product, price, quantity):
-        self.product = product
-        self.price = price
-        self.quantity = quantity
-        self.total = f"{product}, Quantity: {quantity} Units, Total Price: ${price * quantity}"
 
 greeting()
 shopping_lists = []
