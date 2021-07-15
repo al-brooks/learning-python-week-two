@@ -15,6 +15,7 @@ for table in range(1, 13):
     tables.append(pool_table)
     # print(pool_table.number) # testing number attribute - works
 
+
 # view all tables and occupation status
 for table in range(1, len(tables) + 1):
     print(pool_table.display_occupy(table))
@@ -26,24 +27,39 @@ for table in range(1, len(tables) + 1):
 
 
 
-# Testing loop to see if class methods worked 
+# Print out menu options
 # ==============================================================================
-# while True:
-#     print("Does someone want to check out a pool table?\n")
+while True:
+    print("""
+    A. Check out pool table
+    B. Check in pool table
+    C. View pool tables
+    Q. Quit App
+    """)
 
-#     choice = input("Enter in y or n: ")
+    choice = input("Enter your choice: ")
+    choice = choice.upper()
 
-#     if choice.lower() == "y":
-#         table_1 = PoolTable(1)
-#         table_1.check_out()
-#         print(f"Your start time is: {table_1.start_time_display}")
+    # Check out pool table
+    if choice == "A":
+        # display all tables
+        for table in tables:
+            print(f"Table # {table.number}")
+            print(f"Checkout Time is {table.start_time}")
 
-#     game_over = input("Are they done playing? Enter y or n")
+        # which table do they want to check out
+        table_num = int(input("Enter the table # you want to check out"))
 
-#     if game_over.lower() == "y":
-#         table_1.check_in()
-#         print(table_1.play_duraton)
-#         break
+        # pull table num from array
+        user_table = tables[table_num -1]
+
+        # run check_out method
+        user_table.check_out()
+        print(f"Your start time is: {user_table.start_time_display}")
+
+
+    if choice == "Q":
+        break
 
 
 # table_1.check_out()

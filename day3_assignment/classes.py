@@ -25,6 +25,14 @@ class PoolTable():
         self.occupied = True
         self.start_time = datetime.now()
         self.start_time_display = self.start_time.strftime("%Y-%m-%d %H:%M:%S")
+
+    def save_to_file(self): # Writing check-in to text/json file
+        # file name has to change to be date
+        with open("pool_tables.txt", "w") as file:
+            # Need to write in pool_table info
+            file.write(str(self.number))
+            # Need to pass in Datetime strings
+            file.write(self.start_time)
     
     def check_in(self):
         self.occupied = False
