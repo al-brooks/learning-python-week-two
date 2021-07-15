@@ -6,44 +6,27 @@ class PoolTable():
 
     def __init__(self, number):
         self.number = number
-        self.occupied = False
+        self.is_occupied = False
         self.start_time = None
         self.start_time_display = None
         self.end_time = None
         self.end_time_display = None
         self.play_duraton = None
+        self.play_duraton_display = None
 
-    def display_occupy(self, number):
-        if self.occupied == False:
-           display = f"Pool Table {number} is NOT OCCUPIED"
+    def occupy_status(self):
+        if self.is_occupied == False:
+            return "Not Occupied"
         else:
-            display = f"Pool Table {number} is OCCUPIED"
-        return display
+            return "Occupied"
 
-    # Class methods: Occupied - Not Occupied
     def check_out(self):
-        self.occupied = True
-        self.start_time = datetime.now()
-        self.start_time_display = self.start_time.strftime("%Y-%m-%d %H:%M:%S")
-
-    def save_to_file(self): # Writing check-in to text/json file
-        # file name has to change to be date
-        with open("pool_tables.txt", "w") as file:
-            # Need to write in pool_table info
-            file.write(str(self.number))
-            # Need to pass in Datetime strings
-            file.write(self.start_time)
-    
-    def check_in(self):
-        self.occupied = False
-        self.end_time = datetime.now()
-        self.end_time_display = self.end_time.strftime("%Y-%m-%d %H:%M:%S")
-
-        convert_start = datetime.strptime(self.start_time_display, "%Y-%m-%d %H:%M:%S")
-        convert_end = datetime.strptime(self.end_time_display, "%Y-%m-%d %H:%M:%S")
-
-        self.play_duraton = convert_end - convert_start
-        print(f"Thanks for using our service your session duration was: {self.play_duraton}")
+        if self.is_occupied == False:
+            self.is_occupied = True
+            self.start_time = datetime.now()
+            self.start_time_display = self.start_time.strftime("%m-%d-%Y %I:%M:%S %p")
+        else:
+            print("This table is occupied, choose another")
 
     def duration_display(self):
         duration_secs = self.play_duraton.total_seconds()
@@ -51,10 +34,41 @@ class PoolTable():
         duration_hour = duration_min / 60
 
         if duration_min < 1:
-            return "%.0f" % duration_secs
+            return "%.0f seconds" % duration_secs
         elif duration_min >= 1 and duration_min < 60:
-            return "%.2f" % duration_min
-        elif duration_min > 60:
-            return "%.2f" % duration_hour
+            return "%.1f minutes" % duration_min
         else:
-            print("bad code")
+            return "%.2f hours" % duration_hour
+
+    def check_in_to_dict(self):
+        duration = self.duration_display()
+        pt_dict = {
+            "table_number": self.number,
+            "start_time": self.start_time_display,
+            "end_time": self.end_time_display,
+            "play_duration": duration
+            }
+        return pt_dict
+        
+    def check_in(self):
+        self.end_time = datetime.now()
+        self.end_time_display = self.end_time.strftime("%m-%d-%Y %I:%M:%S %p")
+        self.play_duraton = self.end_time - self.start_time
+
+        print("\tThanks for using our service:")
+        print("\t==========================================")
+        print(f"\tStart Time - {self.start_time_display}")
+        print(f"\tEnd Time - {self.end_time_display}")
+        print(f"\tYour session duration was approximately: {self.duration_display()}\n")
+
+        print(self.check_in_to_dict())
+
+    def attribute_reset(self):        
+        # Resetting attributes
+        self.is_occupied = False
+        self.start_time = None
+        self.start_time_display = None
+        self.end_time = None
+        self.end_time_display = None
+
+    

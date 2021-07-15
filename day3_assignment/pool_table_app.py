@@ -1,67 +1,99 @@
-# Pool table management app
-
-# Need to track date/time:
 from datetime import datetime
-from classes import PoolTable        
+from classes import PoolTable
+import json  
 
-# Create Table instances
-# ==============================================================================
-tables = [] # global array
+pool_tables = []
+checked_out = []
 
-# creates 12 tables instances
+def create_tables():
+    for table in range(1, 13):
+        pool_table = PoolTable(table)
+        pool_tables.append(pool_table)
 
-for table in range(1, 13):
-    pool_table = PoolTable(table)
-    tables.append(pool_table)
-    # print(pool_table.number) # testing number attribute - works
+def display_status():
+    print("\n\tBelow are all pool tables:")
+    print("\t=========================================\n")
+    for table in pool_tables:
+        print(f"\tTable # {table.number}")
+        print(f"\tTable is {table.occupy_status()}")
+        print(f"\tCheck-out Time is {table.start_time_display}\n")
 
+def display_occupied():
+    print("\n\tBelow are the occupied tables:")
+    print("\t=========================================\n")
+    for table in pool_tables:
+        if table.is_occupied == True:
+            print(f"\tTable # {table.number}")
+            print(f"\tTable is {table.occupy_status()}")
+            print(f"\tCheck-out Time is {table.start_time_display}\n")
+        else:
+            continue
 
-# view all tables and occupation status
-for table in range(1, len(tables) + 1):
-    print(pool_table.display_occupy(table))
+def display_not_occupied():
+    print("\n\tBelow are the open tables:")
+    print("\t=========================================\n")
+    for table in pool_tables:
+        if table.is_occupied == False:
+            print(f"\tTable # {table.number}")
+            print(f"\tTable is {table.occupy_status()}")
+            print(f"\tCheck-out Time is {table.start_time_display}\n")
+        else:
+            continue
 
-# You should be able to see all the tables (12)
-# need to create a separate table instance - like store or groceries. Store in an array?
+# Initiate pool_table objects
+create_tables()
 
-# ==============================================================================
-
-
-
-# Print out menu options
-# ==============================================================================
 while True:
-    print("""
-    A. Check out pool table
-    B. Check in pool table
-    C. View pool tables
-    Q. Quit App
-    """)
+    print("\n\tPlease choose one of the options below:")
+    print("\t==========================================\n")
+    print("\tA. Check out pool table")
+    print("\tB. Check in pool table")
+    print("\tC. View pool tables")
+    print("\tQ. Quit App\n")
 
-    choice = input("Enter your choice: ")
+    choice = input("\tEnter your choice:    ")
     choice = choice.upper()
 
     # Check out pool table
     if choice == "A":
-        # display all tables
-        for table in tables:
-            print(f"Table # {table.number}")
-            print(f"Checkout Time is {table.start_time}")
-
-        # which table do they want to check out
-        table_num = int(input("Enter the table # you want to check out"))
+        display_not_occupied()
+        table_num = int(input("\tEnter the table # you want to check out:   "))
 
         # pull table num from array
-        user_table = tables[table_num -1]
+        user_table = pool_tables[table_num -1]
 
         # run check_out method
         user_table.check_out()
-        print(f"Your start time is: {user_table.start_time_display}")
+        print(f"\tYour start time is: {user_table.start_time_display}\n")
+    
+    if choice == "B":
+        # display all tables
+        display_occupied()
+
+        # which table do they want to check out
+        table_num = int(input("\tEnter the table # you want to check in:    "))
+
+        # pull table num from array
+        user_table = pool_tables[table_num -1]
+
+        # run check_out method
+        user_table.check_in()
+        checked_out.append(user_table.check_in_to_dict())
+        user_table.attribute_reset()
+        # print(f"Your start time is: {user_table.start_time_display}")
+
+    if choice == "C":
+        # display all tables
+        display_status()
 
 
     if choice == "Q":
         break
 
-
+# Check dict array
+# print(checked_out)
+with open("pool_tables_activity.json", "w") as file:
+            json.dump(checked_out, file)
 # table_1.check_out()
 # print(table_1.start_time)
 
