@@ -40,13 +40,25 @@ class PoolTable():
         else:
             return "%.2f hours" % duration_hour
 
+    def session_cost(self):
+        duration_secs = self.play_duraton.total_seconds()
+        duration_min = duration_secs / 60
+
+        if duration_min < 1:
+            return 0
+        else:
+            return "%.2f" % (duration_min * 0.50) # based on $30 an hour cost
+
+
     def check_in_to_dict(self):
         duration = self.duration_display()
+        cost = self.session_cost()
         pt_dict = {
             "table_number": self.number,
             "start_time": self.start_time_display,
             "end_time": self.end_time_display,
-            "play_duration": duration
+            "play_duration": duration,
+            "session_cost": cost
             }
         return pt_dict
         
@@ -59,9 +71,11 @@ class PoolTable():
         print("\t==========================================")
         print(f"\tStart Time - {self.start_time_display}")
         print(f"\tEnd Time - {self.end_time_display}")
-        print(f"\tYour session duration was approximately: {self.duration_display()}\n")
+        print(f"\tYour session duration was approximately: {self.duration_display()}")
+        print(f"\tYour session cost was approximately: ${self.session_cost()}\n")
 
-        print(self.check_in_to_dict())
+        # Testing dictionary method
+        # print(self.check_in_to_dict())
 
     def attribute_reset(self):        
         # Resetting attributes
