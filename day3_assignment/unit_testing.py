@@ -40,6 +40,9 @@ class PoolTableAppTests(unittest.TestCase):
 
         self.assertEqual(is_occupied_res, self.pool_table.is_occupied)
         self.assertEqual(start_display_res, self.pool_table.start_time_display)
+
+    # Test attributes and error messages getting thrown up
+    # ex. after check_out can a table be checked out again?
         
 
 unittest.main() # run tests
