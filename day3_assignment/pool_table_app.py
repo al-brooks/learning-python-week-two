@@ -1,5 +1,5 @@
 from datetime import datetime
-from classes import PoolTable
+from models import PoolTable
 import json  
 
 pool_tables = []

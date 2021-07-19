@@ -1,6 +1,6 @@
 import unittest # importing unit test framework
 
-from classes import PoolTable
+from models import PoolTable
 from datetime import datetime
 
 class PoolTableAppTests(unittest.TestCase):
